@@ -44,28 +44,45 @@ class SinglyLinkedList
     public:
         // Returns the number of elements in the linked list.
         // Algorithmic runtime: O(1)
-        int getLength() const;
+        int getLength() const
+        {
+            return length;
+        }
 
         // Returns the element at the specified index or throws an exception
         // if the index is out of range.
         // Algorithmic runtime: O(N)
-        TYPE getElementAtIndex(int index) const;
+        TYPE getElementAtIndex(int index) const
+        {
+            // TODO
+            return NULL;
+        }
 
         // Searches the list for the first element that is strictly equal to
         // the "element" argument. Returns the index of the element, or
         // returns -1 if the list does not contain the specified element.
         // Algorithmic runtime: O(N)
-        int getFirstIndexOf(TYPE element) const;
+        int getFirstIndexOf(TYPE element) const
+        {
+            // TODO
+            return 0;
+        }
 
         // Inserts an element at the specified index, or throws an exception
         // if the index is out of range.
         // Algorithmic runtime: O(N)
-        void insertAtIndex(TYPE element, int index);
+        void insertAtIndex(TYPE element, int index)
+        {
+            // TODO
+        }
 
         // Deletes an element from the specified index, or throws an exception
         // if the index is out of range.
         // Algorithmic runtime: O(N)
-        void deleteFromIndex(int index);
+        void deleteFromIndex(int index)
+        {
+            // TODO
+        }
 
     private:
         SinglyLinkedListNode<TYPE>* head = NULL;

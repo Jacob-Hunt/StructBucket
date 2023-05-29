@@ -27,12 +27,9 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
-#include "../SinglyLinkedList.h"
+#include "../SinglyLinkedList.hpp"
 
-TEST_CASE( "This test should pass", "[SinglyLinkedList]" ) {
-    REQUIRE( 1 == 1 );
-}
-
-TEST_CASE( "This test should fail", "[SinglyLinkedList]" ) {
-    REQUIRE( 1 == 2 );
+TEST_CASE( "Returns the correct length for an empty list", "[SinglyLinkedList][getLength()]" ) {
+    SinglyLinkedList<int> testList;
+    REQUIRE( testList.getLength() == 0 );
 }

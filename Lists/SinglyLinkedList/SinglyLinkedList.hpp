@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @file SinglyLinkedList.h
+ * @file SinglyLinkedList.hpp
  * @brief Implementation of a singly linked list data structure
  * @author Jacob Hunt
  * Contact: (jacobhuntdevelopment@gmail.com)

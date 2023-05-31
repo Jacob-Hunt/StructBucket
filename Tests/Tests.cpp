@@ -27,8 +27,13 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+// Macro to build main method for unit test driver
 #define CATCH_CONFIG_MAIN
+
+// Include unit testing library
 #include "../Libraries/Catch2/catch.hpp"
+
+// Include all unit tests for all collections in the project
 #include "../Lists/SinglyLinkedList/Tests/GetElementAtIndexTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/GetLengthTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/GetFirstIndexOfTests.cpp"

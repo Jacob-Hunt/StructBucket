@@ -29,46 +29,48 @@
 
 #include "../SinglyLinkedList.hpp"
 
-TEST_CASE( "Throws an exception when trying to retrieve from an empty list", "[SinglyLinkedList][getElementAtIndex()]" ) {
+TEST_CASE("Throws an exception when trying to retrieve from an empty list", "[SinglyLinkedList][getElementAtIndex()]")
+{
     SinglyLinkedList<char> testList;
     REQUIRE_THROWS( testList.getElementAtIndex(0) );
 }
 
-TEST_CASE( "Retrieves correct elements", "[SinglyLinkedList][getElementAtIndex()]" ) {
+TEST_CASE("Retrieves correct elements", "[SinglyLinkedList][getElementAtIndex()]")
+{
     SinglyLinkedList<char> testList;
     testList.insertAtIndex(0, 'a');
     testList.insertAtIndex(1, 'b');
     testList.insertAtIndex(2, 'c');
 
-    SECTION( "Retrieves correct element from head of list" )
+    SECTION("Retrieves correct element from head of list")
     {
-        REQUIRE( testList.getElementAtIndex(0) == 'a' );
+        REQUIRE(testList.getElementAtIndex(0) == 'a');
     }
 
-    SECTION( "Retrieves correct element from tail of list" )
+    SECTION("Retrieves correct element from tail of list")
     {
-        REQUIRE( testList.getElementAtIndex(2) == 'c' );
+        REQUIRE(testList.getElementAtIndex(2) == 'c');
     }
 
-    SECTION( "Retrieves correct element from middle of list" )
+    SECTION("Retrieves correct element from middle of list")
     {
-        REQUIRE( testList.getElementAtIndex(1) == 'b' );
+        REQUIRE(testList.getElementAtIndex(1) == 'b');
     }
 
-    SECTION( "Does not modify size of list" )
+    SECTION("Does not modify size of list")
     {
         int size = testList.getLength();
         testList.getElementAtIndex(1);
-        REQUIRE( testList.getLength() == size );
+        REQUIRE(testList.getLength() == size);
     }
 
-    SECTION( "Throws an exception when trying to retrieve from a negative index" )
+    SECTION("Throws an exception when trying to retrieve from a negative index")
     {
-        REQUIRE_THROWS( testList.getElementAtIndex(-1) );
+        REQUIRE_THROWS(testList.getElementAtIndex(-1));
     }
 
-    SECTION( "Throws an exception when trying to retrieve from an out-of-bounds index" )
+    SECTION("Throws an exception when trying to retrieve from an out-of-bounds index")
     {
-        REQUIRE_THROWS( testList.getElementAtIndex(4) );
+        REQUIRE_THROWS(testList.getElementAtIndex(4));
     }
 }

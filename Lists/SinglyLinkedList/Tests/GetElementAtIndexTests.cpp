@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @file GetLengthTests.cpp
+ * @file GetElementAtIndexTests.cpp
  * @brief Unit tests for a singly linked list data structure
  * @author Jacob Hunt
  * Contact: (jacobhuntdevelopment@gmail.com)
@@ -29,22 +29,46 @@
 
 #include "../SinglyLinkedList.hpp"
 
-TEST_CASE( "Returns the correct length for an empty list", "[SinglyLinkedList][getLength()]" ) {
+TEST_CASE( "Throws an exception when trying to retrieve from an empty list", "[SinglyLinkedList][getElementAtIndex()]" ) {
     SinglyLinkedList<char> testList;
-    REQUIRE( testList.getLength() == 0 );
+    REQUIRE_THROWS( testList.getElementAtIndex(0) );
 }
 
-TEST_CASE( "Returns the correct length a list with multiple elements", "[SinglyLinkedList][getLength()]" ) {
+TEST_CASE( "Retrieves correct elements", "[SinglyLinkedList][getElementAtIndex()]" ) {
     SinglyLinkedList<char> testList;
     testList.insertAtIndex(0, 'a');
-    testList.insertAtIndex(0, 'b');
-    REQUIRE( testList.getLength() == 2 );
-}
+    testList.insertAtIndex(1, 'b');
+    testList.insertAtIndex(2, 'c');
 
-TEST_CASE( "Returns the correct length after elements have been removed", "[SinglyLinkedList][getLength()]" ) {
-    SinglyLinkedList<char> testList;
-    testList.insertAtIndex(0, 'a');
-    testList.insertAtIndex(0, 'b');
-    testList.deleteFromIndex(1);
-    REQUIRE( testList.getLength() == 1 );
+    SECTION( "Retrieves correct element from head of list" )
+    {
+        REQUIRE( testList.getElementAtIndex(0) == 'a' );
+    }
+
+    SECTION( "Retrieves correct element from tail of list" )
+    {
+        REQUIRE( testList.getElementAtIndex(2) == 'c' );
+    }
+
+    SECTION( "Retrieves correct element from middle of list" )
+    {
+        REQUIRE( testList.getElementAtIndex(1) == 'b' );
+    }
+
+    SECTION( "Does not modify size of list" )
+    {
+        int size = testList.getLength();
+        testList.getElementAtIndex(1);
+        REQUIRE( testList.getLength() == size );
+    }
+
+    SECTION( "Throws an exception when trying to retrieve from a negative index" )
+    {
+        REQUIRE_THROWS( testList.getElementAtIndex(-1) );
+    }
+
+    SECTION( "Throws an exception when trying to retrieve from an out-of-bounds index" )
+    {
+        REQUIRE_THROWS( testList.getElementAtIndex(4) );
+    }
 }

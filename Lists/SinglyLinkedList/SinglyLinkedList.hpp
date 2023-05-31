@@ -71,7 +71,7 @@ class SinglyLinkedList
         // Inserts an element at the specified index, or throws an exception
         // if the index is out of range.
         // Algorithmic runtime: O(N)
-        void insertAtIndex(TYPE element, int index)
+        void insertAtIndex(int index, TYPE element)
         {
             // TODO
         }

@@ -38,3 +38,4 @@
 #include "../Lists/SinglyLinkedList/Tests/GetLengthTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/GetFirstIndexOfTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/InsertAtIndexTests.cpp"
+#include "../Lists/SinglyLinkedList/Tests/DeleteFromIndexTests.cpp"

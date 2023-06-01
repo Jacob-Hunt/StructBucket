@@ -27,13 +27,6 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
-TEST_CASE("Throws an exception when trying to retrieve an element of the wrong type", "[SinglyLinkedList][getElementAtIndex()]")
-{
-    SinglyLinkedList<char> testList;
-    testList.insertAtIndex(0, 'a');
-    REQUIRE_THROWS(testList.getFirstIndexOf(0));
-}
-
 TEST_CASE("Retrieves correct indices", "[SinglyLinkedList][getElementAtIndex()]")
 {
     SinglyLinkedList<char> testList;

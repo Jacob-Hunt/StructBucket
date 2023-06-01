@@ -34,7 +34,7 @@
 template<typename TYPE>
 struct SinglyLinkedListNode
 {
-    TYPE* element;
+    TYPE element;
     SinglyLinkedListNode* next;
 };
 
@@ -54,18 +54,51 @@ class SinglyLinkedList
         // Algorithmic runtime: O(N)
         TYPE getElementAtIndex(int index) const
         {
-            // TODO
-            return NULL;
+            // Validate argument
+            if (index < 0 || index >= length)
+            {
+                throw std::out_of_range("Invalid index (out of range)");
+            }
+
+            // Traverse list up to specified index
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+            for (int i = 0; i < index; i++)
+            {
+                currentNode = currentNode->next;
+            }
+
+            // Return the element from the node at the specified index
+            return currentNode->element;
         }
 
         // Searches the list for the first element that is strictly equal to
-        // the "element" argument. Returns the index of the element, or
-        // returns -1 if the list does not contain the specified element.
+        // the "element" argument using a linear search algorithm. Returns
+        // the index of the element, or returns -1 if the list does not
+        // contain the specified element.
         // Algorithmic runtime: O(N)
         int getFirstIndexOf(TYPE element) const
         {
-            // TODO
-            return 0;
+            // Instantiate traversal variables
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+            int index = 0;
+
+            // While we haven't reached the end of the list...
+            while (currentNode != NULL)
+            {
+                // If we found it...
+                if (currentNode->element == element)
+                {
+                    // ...return it
+                    return index;
+                }
+
+                // Otherwise, keep on moving through the list
+                currentNode = currentNode->next;
+                index++;
+            }
+
+            // Return -1 if the element was not found
+            return -1;
         }
 
         // Inserts an element at the specified index, or throws an exception
@@ -73,7 +106,38 @@ class SinglyLinkedList
         // Algorithmic runtime: O(N)
         void insertAtIndex(int index, TYPE element)
         {
-            // TODO
+            // Validate arguments
+            if (index < 0 || index > length)
+            {
+                throw std::out_of_range("Invalid index (out of range)");
+            }
+
+            // Create node to insert into the list
+            SinglyLinkedListNode<TYPE>* newNode = new SinglyLinkedListNode<TYPE>
+            {
+                element,
+                NULL
+            };
+
+            // Handle case where node is inserted at the head of the list
+            if (index == 0)
+            {
+                newNode->next = head;
+                head = newNode;
+                length++;
+                return;
+            }
+
+            // Traverse list up to the insertion location
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+            for (int i = 0; i < index - 1; i++) currentNode = currentNode->next;
+
+            // Insert new node by adjusting pointers 
+            newNode->next = currentNode->next;
+            currentNode->next = newNode;
+
+            // Increase length counter
+            length++;
         }
 
         // Deletes an element from the specified index, or throws an exception
@@ -81,7 +145,35 @@ class SinglyLinkedList
         // Algorithmic runtime: O(N)
         void deleteFromIndex(int index)
         {
-            // TODO
+            // Validate arguments
+            if (index < 0 || index >= length)
+            {
+                throw std::out_of_range("Invalid index (out of range)");
+            }
+
+            // Allocate variable for the node that will be deleted
+            SinglyLinkedListNode<TYPE>* nodeToDelete;
+
+            // Handle case where head of list is deleted
+            if (index == 0)
+            {
+                nodeToDelete = head;
+                head = head->next;
+                length--;
+                return;
+            }
+
+            // Traverse to index of node to be deleted
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+            for (int i = 0; i < index - 1; i++) currentNode = currentNode->next;
+
+            // Rearrange pointers
+            nodeToDelete = currentNode->next;
+            currentNode->next = nodeToDelete->next;
+
+            // Perform housekeeping
+            delete nodeToDelete;
+            length--;
         }
 
     private:

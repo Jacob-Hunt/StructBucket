@@ -37,3 +37,4 @@
 #include "../Lists/SinglyLinkedList/Tests/GetElementAtIndexTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/GetLengthTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/GetFirstIndexOfTests.cpp"
+#include "../Lists/SinglyLinkedList/Tests/InsertAtIndexTests.cpp"

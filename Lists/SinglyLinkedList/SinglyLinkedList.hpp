@@ -195,6 +195,27 @@ class SinglyLinkedList
             length--;
         }
 
+        // Removes all elements from the list, deallocating the associated
+        // memory and setting the head of the list to NULL.
+        // Algorithmic runtime: O(N)
+        void clear()
+        {
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+
+            // Traverse the list until we reach the end, deleting all nodes
+            // along the way.
+            while (currentNode != NULL)
+            {
+                SinglyLinkedListNode<TYPE>* next = currentNode->next;
+                delete currentNode;
+                currentNode = next;
+            }
+
+            // Housekeeping
+            head = NULL;
+            length = 0;
+        }
+
     private:
         SinglyLinkedListNode<TYPE>* head = NULL;
         int length = 0;

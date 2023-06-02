@@ -1,4 +1,5 @@
-TEST_CASE("Throws exception when trying to delete from invalid index") {
+TEST_CASE("Throws exception when trying to delete from invalid index", "[SinglyLinkedList][deleteFromIndex()]")
+{
     SinglyLinkedList<char> testList;
     testList.insertAtIndex(0, 'a');
     testList.insertAtIndex(1, 'b');
@@ -6,7 +7,8 @@ TEST_CASE("Throws exception when trying to delete from invalid index") {
     REQUIRE(testList.getLength() == 2);
 }
 
-TEST_CASE("Deletes the correct element", "[SinglyLinkedList][deleteFromIndex()]") {
+TEST_CASE("Deletes the correct element", "[SinglyLinkedList][deleteFromIndex()]")
+{
     SinglyLinkedList<char> testList;
     testList.insertAtIndex(0, 'a');
     testList.insertAtIndex(1, 'b');

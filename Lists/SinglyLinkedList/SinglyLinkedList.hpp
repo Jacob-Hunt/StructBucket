@@ -140,6 +140,25 @@ class SinglyLinkedList
             length++;
         }
 
+        // Assigns the provided element to the existing node at the specified
+        // index.
+        // Algorithmic runtime: O(N) 
+        void updateAtIndex(int index, TYPE element)
+        {
+            // Validate arguments
+            if (index < 0 || index >= length)
+            {
+                throw std::out_of_range("Invalid index (out of range)");
+            }
+
+            // Traverse the list up to the specified index
+            SinglyLinkedListNode<TYPE>* currentNode = head;
+            for (int i = 0; i < index; i++) currentNode = currentNode->next;
+
+            // Update the element in the node at the specified index
+            currentNode->element = element;
+        }
+
         // Deletes an element from the specified index, or throws an exception
         // if the index is out of range.
         // Algorithmic runtime: O(N)

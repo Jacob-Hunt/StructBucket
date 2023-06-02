@@ -27,7 +27,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
-TEST_CASE("Retrieves correct indices", "[SinglyLinkedList][getElementAtIndex()]")
+TEST_CASE("Retrieves correct indices", "[SinglyLinkedList][getFirstIndexOf()]")
 {
     SinglyLinkedList<char> testList;
     testList.insertAtIndex(0, 'a');

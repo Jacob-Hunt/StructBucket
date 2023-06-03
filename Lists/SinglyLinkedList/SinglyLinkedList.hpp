@@ -42,6 +42,13 @@ template<typename TYPE>
 class SinglyLinkedList
 {
     public:
+        // Destructor method; deallocates all memory for the linked list.
+        // Algorithmic runtime: O(N)
+        ~SinglyLinkedList()
+        {
+            clear();
+        }
+
         // Returns the number of elements in the linked list.
         // Algorithmic runtime: O(1)
         int getLength() const

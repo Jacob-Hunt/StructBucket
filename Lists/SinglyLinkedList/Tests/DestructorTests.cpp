@@ -21,24 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @file Tests.cpp
- * @brief Catch2 unit tests from all collections in the project
+ * @file DestructorTests.cpp
+ * @brief Unit tests for a singly linked list data structure
  * @author Jacob Hunt
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
-// Macro to build main method for unit test driver
-#define CATCH_CONFIG_MAIN
-
-// Include unit testing library
-#include "../Libraries/Catch2/catch.hpp"
-
-// Include all unit tests for all collections in the project
-#include "../Lists/SinglyLinkedList/Tests/GetElementAtIndexTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/GetLengthTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/GetFirstIndexOfTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/InsertAtIndexTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/DeleteFromIndexTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/UpdateAtIndexTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/ClearTests.cpp"
-#include "../Lists/SinglyLinkedList/Tests/DestructorTests.cpp"
+TEST_CASE("Does not throw an exception when deleting a list", "[SinglyLinkedList][destructor]")
+{
+    SinglyLinkedList<int>* testList = new SinglyLinkedList<int>();
+    testList->insertAtIndex(0, 10);
+    testList->insertAtIndex(1, 20);
+    testList->insertAtIndex(2, 30);
+    REQUIRE_NOTHROW(delete testList);
+}

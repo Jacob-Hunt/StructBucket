@@ -40,3 +40,4 @@
 #include "../Lists/SinglyLinkedList/Tests/InsertAtIndexTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/DeleteFromIndexTests.cpp"
 #include "../Lists/SinglyLinkedList/Tests/UpdateAtIndexTests.cpp"
+#include "../Lists/SinglyLinkedList/Tests/ClearTests.cpp"

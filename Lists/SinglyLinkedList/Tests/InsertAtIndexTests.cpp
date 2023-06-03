@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2023 Jacob Hunt
+ *
+ * @file InsertAtIndexTests.cpp
+ * @brief Unit tests for a singly linked list data structure
+ * @author Jacob Hunt
+ * @copyright MIT License
+ * Contact: (jacobhuntdevelopment@gmail.com)
+ */
+
 TEST_CASE("Inserts element at the beginning of the list", "[SinglyLinkedList][insertAtIndex()]")
 {
     SinglyLinkedList<char> testList;

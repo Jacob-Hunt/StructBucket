@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2023 Jacob Hunt
+ *
+ * @file DeleteFromIndexTests.cpp
+ * @brief Unit tests for a singly linked list data structure
+ * @author Jacob Hunt
+ * @copyright MIT License
+ * Contact: (jacobhuntdevelopment@gmail.com)
+ */
+
 TEST_CASE("Throws exception when trying to delete from invalid index", "[SinglyLinkedList][deleteFromIndex()]")
 {
     SinglyLinkedList<char> testList;

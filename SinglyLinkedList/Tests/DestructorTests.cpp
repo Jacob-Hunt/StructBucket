@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Does not throw an exception when deleting a list", "[SinglyLinkedList][destructor]")
 {
     SinglyLinkedList<int>* testList = new SinglyLinkedList<int>();

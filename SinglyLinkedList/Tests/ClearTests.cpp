@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Clears the list", "[SinglyLinkedList][clear()]")
 {
     SinglyLinkedList<int> testList;

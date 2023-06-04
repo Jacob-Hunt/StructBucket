@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Inserts element at the beginning of the list", "[SinglyLinkedList][insertAtIndex()]")
 {
     SinglyLinkedList<char> testList;

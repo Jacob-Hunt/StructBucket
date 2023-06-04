@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Updates an element at a valid index", "[SinglyLinkedList][updateElementAtIndex()]")
 {
     SinglyLinkedList<int> testList;

@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Retrieves correct indices", "[SinglyLinkedList][getFirstIndexOf()]")
 {
     SinglyLinkedList<char> testList;

@@ -8,6 +8,8 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../SinglyLinkedList.hpp"
+
 TEST_CASE("Throws exception when trying to delete from invalid index", "[SinglyLinkedList][deleteFromIndex()]")
 {
     SinglyLinkedList<char> testList;

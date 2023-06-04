@@ -91,7 +91,7 @@ class RedBlackTree
         }
 
     protected:
-        RedBlackTreeNode<TYPE>* head = NULL;
+        RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* root = NULL;
         int size = 0;
 };
 

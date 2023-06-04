@@ -2,7 +2,7 @@
  * Copyright (c) 2023 Jacob Hunt
  *
  * @file RedBlackTree.hpp
- * @brief Implementation of a Red Black Tree data structure that can contain duplicate elements
+ * @brief Red Black Tree implementation of a key/value dictionary
  * @author Jacob Hunt
  * @copyright MIT License
  * Contact: (jacobhuntdevelopment@gmail.com)
@@ -12,18 +12,18 @@
 #define REDBLACKTREE_H
 #include <cstddef>
 
-template<typename TYPE>
+template<typename KEY_TYPE, typename VALUE_TYPE>
 struct RedBlackTreeNode
 {
-    TYPE element;
-    int count;
+    KEY_TYPE key;
+    VALUE_TYPE value;
     bool isRed;
     RedBlackTreeNode* parent;
     RedBlackTreeNode* leftChild;
     RedBlackTreeNode* rightChild;
 };
 
-template<typename TYPE>
+template<typename KEY_TYPE, typename VALUE_TYPE>
 class RedBlackTree
 {
     public:
@@ -41,33 +41,44 @@ class RedBlackTree
             return size;
         }
 
-        // Returns the number of elements strictly equal to the provided
-        // argument that are contained in the tree.
+        // Returns true if the tree contains a node referenced by the key.
         // Algorithmic runtime: O(log N)
-        int contains(TYPE element)
+        bool contains(KEY_TYPE key)
         {
             // TODO
-            return 0;
+            return false;
         }
 
-        // Inserts one or more elements into the tree. The number of copies of
-        // "element" parameter to be inserted is specified by the "number"
-        // parameter (with a single element being insterted if "number" is not
-        // specified).
+        // Inserts a key/value pair into the tree. Throws an exception if the
+        // tree already contains an element with the same key.
         // Algorithmic runtime: O(log N)
-        void insert(TYPE element, int number = 1)
+        void insert(KEY_TYPE key, VALUE_TYPE value)
         {
             // TODO
         }
 
-        // Removes one or more elements from the tree. The number of copies of
-        // "element" parameter to be deleted is specified by the "number"
-        // parameter (with a single element being insterted if "number" is not
-        // specified). Returns false if attempting to remove more matching 
-        // elements than already exist in the tree, while still deleting the
-        // matching elements that do exist.
+        // Updates the value of the node with the specified key. Throws an
+        // exception if the tree does not contain a node with the provided
+        // key.
         // Algorithmic runtime: O(log N)
-        void remove(TYPE element, int number = 1)
+        void update(KEY_TYPE key, VALUE_TYPE newValue)
+        {
+            // TODO
+        }
+
+        // Updates the value of the node with the specified key, or inserts the
+        // provided key/value pair if the tree does not already contain the key.
+        // Algorithmic runtime: O(log N)
+        bool upsert(KEY_TYPE key, VALUE_TYPE newValue)
+        {
+            // TODO
+        }
+
+        // Removes the node of the tree with the specified key. Returns false
+        // if the tree didn't contain a node with the provided key, returns true
+        // otherwise.
+        // Algorithmic runtime: O(log N)
+        bool remove(KEY_TYPE key)
         {
             // TODO
         }

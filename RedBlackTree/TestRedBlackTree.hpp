@@ -57,7 +57,52 @@ class TestRedBlackTree : RedBlackTree
         // same number of black nodes.
         bool blackNodePathEqualityHolds()
         {
-            // TODO
+            // Stack of nodes to check
+            stack<RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>*> nodeStack;
+
+            // Node currently being checked
+            RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* currentNode;
+
+            // Stack of black node path counts to be checked (if Red Black Tree
+            // property holds, all numbers in this stack should be identical).
+            stack<int> blackNodePathCounts;
+
+            // Start with the root node
+            nodeStack.push(root);
+
+            // While we still have nodes to check...
+            while (!nodeStack.empty())
+            {
+                // Check if the current node is a leaf node and, if so, count
+                // the number of black nodes between the current node and the
+                // root. Otherwise, keep traversing the tree.
+                currentNode = nodeStack.top();
+                nodeStack.pop();
+                if (isLeafNode(currentNode))
+                {
+                    blackNodePathCounts.push(getBlackNodeCountToRoot(currentNode));
+                }
+                else
+                {
+                    if (currentNode->leftChild) nodeStack.push(currentNode->leftChild);
+                    if (currentNode->rightChild) nodeStack.push(currentNode->rightChild);
+                }
+            }
+
+            // Go through the stack of black node counts and make sure that all
+            // counts are identical.
+            if (blackNodePathCounts.size() < 2) return true;
+            else
+            {
+                int lastCount = blackNodePathCounts.top();
+                while (!blackNodePathCounts.empty())
+                {
+                    if (lastCount != blackNodePathCounts.top()) return false;
+                    blackNodePathCounts.pop();
+                }
+            }
+
+            return true;
         }
 
         // Binary Search Tree property: all left children have keys that are
@@ -75,6 +120,25 @@ class TestRedBlackTree : RedBlackTree
                 (node->leftChild && node->leftChild->isRed) ||
                 (node->rightChild && node->rightChild->isRed)
             );
+        }
+
+        int getBlackNodeCountToRoot(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        {
+            int count = 0;
+            while (node->parent)
+            {
+                if (!node->isRed)
+                {
+                    count++;
+                }
+                node = node->parent;
+            }
+            return count;
+        }
+
+        bool isLeafNode(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        {
+            return !node->leftChild && !node->rightChild;
         }
 }
 

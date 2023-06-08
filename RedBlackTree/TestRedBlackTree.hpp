@@ -110,7 +110,30 @@ class TestRedBlackTree : RedBlackTree
         // greater than the parent's key.
         bool isTreeSorted()
         {
-            // TODO
+            // Stack of nodes to check
+            stack<RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>*> nodeStack;
+
+            // Node currently being checked
+            RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* currentNode;
+
+            // Start with the root node
+            nodeStack.push(root);
+
+            // While we still have nodes to check...
+            while (!nodeStack.empty())
+            {
+                // Check if current node is balanced, returning false if not
+                currentNode = nodeStack.top();
+                nodeStack.pop();
+                if (!isBalancedNode(currentNode)) return false;
+
+                // Add child nodes to the stack (if they exist)
+                if (currentNode->leftChild) nodeStack.push(currentNode->leftChild);
+                if (currentNode->rightChild) nodeStack.push(currentNode->rightChild);
+            }
+
+            // All nodes are balanced, therefore tree is balanced
+            return true;
         }
     
     private:
@@ -139,6 +162,14 @@ class TestRedBlackTree : RedBlackTree
         bool isLeafNode(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
         {
             return !node->leftChild && !node->rightChild;
+        }
+
+        bool isBalancedNode(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        {
+            return (
+                !(node->leftChild && node->leftChild->key >= node->key) &&
+                !(node->rightChild && node->rightChild->key <= node->key)
+            );
         }
 }
 

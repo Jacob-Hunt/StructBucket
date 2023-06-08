@@ -15,7 +15,7 @@
 #include "./RedBlackTree.hpp"
 
 template<typename KEY_TYPE, typename VALUE_TYPE>
-class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
+class TestRedBlackTree : public RedBlackTree<KEY_TYPE, VALUE_TYPE>
 {
     public:
         // Red Black Tree property: root node must be black
@@ -28,6 +28,9 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
         // child.
         bool noRedNodesWithRedChildren()
         {
+            // If tree is empty, there are no red nodes with red children
+            if (isEmpty()) return true;
+
             // Stack of nodes to check
             std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
@@ -60,6 +63,10 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
         // same number of black nodes.
         bool blackNodePathEqualityHolds()
         {
+            // If tree is empty, the black node path equality property will
+            // always hold
+            if (isEmpty()) return true;
+
             // Stack of nodes to check
             std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
@@ -113,6 +120,9 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
         // greater than the parent's key.
         bool isTreeSorted()
         {
+            // If the tree is empty, it is sorted by default
+            if (isEmpty()) return true;
+
             // Stack of nodes to check
             std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
@@ -143,6 +153,10 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
         // regardless of other tree properties (such as sorting and balance)
         bool contains(KEY_TYPE key)
         {
+            // If the tree is empty, it cannot contain an element with the
+            // provided key
+            if (isEmpty()) return false;
+
             // Stack of nodes to check
             std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
@@ -170,6 +184,11 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
         }
     
     private:
+        bool isEmpty()
+        {
+            return !this->root;
+        }
+
         bool hasRedChild(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             return (

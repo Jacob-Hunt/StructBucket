@@ -38,7 +38,7 @@ class RedBlackTree
         // Algorithmic runtime: O(1)
         int getSize() const
         {
-            return size;
+            return this->size;
         }
 
         // Returns true if the tree contains a node referenced by the key.
@@ -72,6 +72,7 @@ class RedBlackTree
         bool upsert(KEY_TYPE key, VALUE_TYPE newValue)
         {
             // TODO
+            return false;
         }
 
         // Removes the node of the tree with the specified key. Returns false
@@ -81,6 +82,7 @@ class RedBlackTree
         bool remove(KEY_TYPE key)
         {
             // TODO
+            return false;
         }
 
         // Removes all elements in the tree, deallocating associated memory.
@@ -91,7 +93,7 @@ class RedBlackTree
         }
 
     protected:
-        RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* root = NULL;
+        RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* root = NULL;
         int size = 0;
 };
 

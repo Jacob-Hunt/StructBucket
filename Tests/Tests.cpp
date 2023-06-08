@@ -23,3 +23,4 @@
 #include "../SinglyLinkedList/Tests/GetLengthTests.cpp"
 #include "../SinglyLinkedList/Tests/InsertAtIndexTests.cpp"
 #include "../SinglyLinkedList/Tests/UpdateAtIndexTests.cpp"
+#include "../RedBlackTree/Tests/TreePropertiesTests.cpp"

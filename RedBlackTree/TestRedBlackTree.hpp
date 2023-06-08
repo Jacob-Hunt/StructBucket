@@ -8,17 +8,20 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#ifndef TESTREDBLACKTREE_H
+#define TESTREDBLACKTREE_H
+
 #include <stack>
-#include "../RedBlackTree.hpp"
+#include "./RedBlackTree.hpp"
 
 template<typename KEY_TYPE, typename VALUE_TYPE>
-class TestRedBlackTree : RedBlackTree
+class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
 {
     public:
         // Red Black Tree property: root node must be black
         bool isRootNodeBlack()
         {
-            return !root.isRed;
+            return !this->root.isRed;
         }
 
         // Red Black Tree property: a red node cannot have another red node as a
@@ -26,13 +29,13 @@ class TestRedBlackTree : RedBlackTree
         bool noRedNodesWithRedChildren()
         {
             // Stack of nodes to check
-            stack<RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>*> nodeStack;
+            std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
             // Node currently being checked
-            RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* currentNode;
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode;
 
             // Start with the root node
-            nodeStack.push(root);
+            nodeStack.push(this->root);
 
             // While we still have nodes to check...
             while (!nodeStack.empty())
@@ -58,17 +61,17 @@ class TestRedBlackTree : RedBlackTree
         bool blackNodePathEqualityHolds()
         {
             // Stack of nodes to check
-            stack<RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>*> nodeStack;
+            std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
             // Node currently being checked
-            RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* currentNode;
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode;
 
             // Stack of black node path counts to be checked (if Red Black Tree
             // property holds, all numbers in this stack should be identical).
-            stack<int> blackNodePathCounts;
+            std::stack<int> blackNodePathCounts;
 
             // Start with the root node
-            nodeStack.push(root);
+            nodeStack.push(this->root);
 
             // While we still have nodes to check...
             while (!nodeStack.empty())
@@ -111,13 +114,13 @@ class TestRedBlackTree : RedBlackTree
         bool isTreeSorted()
         {
             // Stack of nodes to check
-            stack<RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>*> nodeStack;
+            std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
 
             // Node currently being checked
-            RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* currentNode;
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode;
 
             // Start with the root node
-            nodeStack.push(root);
+            nodeStack.push(this->root);
 
             // While we still have nodes to check...
             while (!nodeStack.empty())
@@ -137,7 +140,7 @@ class TestRedBlackTree : RedBlackTree
         }
     
     private:
-        bool hasRedChild(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        bool hasRedChild(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             return (
                 (node->leftChild && node->leftChild->isRed) ||
@@ -145,7 +148,7 @@ class TestRedBlackTree : RedBlackTree
             );
         }
 
-        int getBlackNodeCountToRoot(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        int getBlackNodeCountToRoot(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             int count = 0;
             while (node->parent)
@@ -159,17 +162,18 @@ class TestRedBlackTree : RedBlackTree
             return count;
         }
 
-        bool isLeafNode(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        bool isLeafNode(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             return !node->leftChild && !node->rightChild;
         }
 
-        bool isBalancedNode(RedBlackTreeNode<typename KEY_TYPE, typename VALUE_TYPE>* node)
+        bool isBalancedNode(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             return (
                 !(node->leftChild && node->leftChild->key >= node->key) &&
                 !(node->rightChild && node->rightChild->key <= node->key)
             );
         }
-}
+};
 
+#endif

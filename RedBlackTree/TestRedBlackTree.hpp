@@ -138,6 +138,36 @@ class TestRedBlackTree : RedBlackTree<KEY_TYPE, VALUE_TYPE>
             // All nodes are balanced, therefore tree is balanced
             return true;
         }
+
+        // Returns true if a node exists in the tree with the provided key,
+        // regardless of other tree properties (such as sorting and balance)
+        bool contains(KEY_TYPE key)
+        {
+            // Stack of nodes to check
+            std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
+
+            // Node currently being checked
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode;
+
+            // Start with the root node
+            nodeStack.push(this->root);
+
+            // While we still have nodes to check...
+            while (!nodeStack.empty())
+            {
+                // Check if current node is balanced, returning false if not
+                currentNode = nodeStack.top();
+                nodeStack.pop();
+                if (currentNode->key == key) return true;
+
+                // Add child nodes to the stack (if they exist)
+                if (currentNode->leftChild) nodeStack.push(currentNode->leftChild);
+                if (currentNode->rightChild) nodeStack.push(currentNode->rightChild);
+            }
+
+            // Could not find node with the provided key
+            return false;
+        }
     
     private:
         bool hasRedChild(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)

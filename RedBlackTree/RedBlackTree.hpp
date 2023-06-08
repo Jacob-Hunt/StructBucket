@@ -34,19 +34,20 @@ class RedBlackTree
             clear();
         }
 
-        // Returns the number of elements in the tree.
+        // Returns the number of nodes in the tree.
         // Algorithmic runtime: O(1)
-        int getSize() const
+        int size() const
         {
-            return this->size;
+            return this->numberOfNodes;
         }
 
-        // Returns true if the tree contains a node referenced by the key.
+        // Retrieves a pointer to a value from the tree dictionary with the
+        // provided key
         // Algorithmic runtime: O(log N)
-        bool contains(KEY_TYPE key)
+        VALUE_TYPE* get(KEY_TYPE key)
         {
             // TODO
-            return false;
+            return NULL;
         }
 
         // Inserts a key/value pair into the tree. Throws an exception if the
@@ -94,7 +95,7 @@ class RedBlackTree
 
     protected:
         RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* root = NULL;
-        int size = 0;
+        int numberOfNodes = 0;
 };
 
 #endif

@@ -21,7 +21,7 @@ class TestRedBlackTree : public RedBlackTree<KEY_TYPE, VALUE_TYPE>
         // Red Black Tree property: root node must be black
         bool isRootNodeBlack()
         {
-            return !this->root.isRed;
+            return !(this->root && this->root->isRed);
         }
 
         // Red Black Tree property: a red node cannot have another red node as a

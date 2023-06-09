@@ -55,6 +55,55 @@ class RedBlackTree
         // Algorithmic runtime: O(log N)
         void insert(KEY_TYPE key, VALUE_TYPE value)
         {
+            // Throw exception if there is a duplicate key
+            if (this->get(key) != NULL) throw std::runtime_error(
+                "The dictionary already contains an element with the provided key"
+            );
+
+            // Create a new node to insert into the tree
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* newNode = new RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>
+            {
+                .key = key,
+                .value = value,
+                .isRed = true,
+                .parent = NULL,
+                .leftChild = NULL,
+                .rightChild = NULL
+            };
+
+            // Case where tree is empty
+            if (!this->root)
+            {
+                this->root = newNode;
+                this->root->isRed = false;
+                return;
+            }
+
+            // Insert node as a leaf in the tree
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode = this->root;
+            while (!newNode->parent)
+            {
+                if (newNode->key < currentNode->key && currentNode->leftChild)
+                {
+                    currentNode = currentNode->leftChild;
+                }
+                else if (newNode->key > currentNode->key && currentNode->rightChild)
+                {
+                    currentNode = currentNode->rightChild;
+                }
+                else if (newNode->key < currentNode->key)
+                {
+                    newNode->parent = currentNode;
+                    currentNode->leftChild = newNode;
+                }
+                else
+                {
+                    newNode->parent = currentNode;
+                    currentNode->rightChild = newNode;
+                }
+            }
+
+            // Restore Red Black Tree properties
             // TODO
         }
 

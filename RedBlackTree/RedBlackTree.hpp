@@ -107,6 +107,9 @@ class RedBlackTree
 
             // Restore Red Black Tree properties
             restoreRedBlackTreeProperties(newNode);
+
+            // Increment the counter
+            this->numberOfNodes++;
         }
 
         // Updates the value of the node with the specified key. Throws an

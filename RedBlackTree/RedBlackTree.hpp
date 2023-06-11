@@ -11,6 +11,7 @@
 #ifndef REDBLACKTREE_H
 #define REDBLACKTREE_H
 #include <cstddef>
+#include <stdexcept>
 
 template<typename KEY_TYPE, typename VALUE_TYPE>
 struct RedBlackTreeNode

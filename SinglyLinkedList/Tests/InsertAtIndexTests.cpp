@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../SinglyLinkedList.hpp"
 
 TEST_CASE("Inserts element at the beginning of the list", "[SinglyLinkedList][insertAtIndex()]")

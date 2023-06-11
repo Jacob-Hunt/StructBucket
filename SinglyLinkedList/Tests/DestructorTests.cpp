@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../SinglyLinkedList.hpp"
 
 TEST_CASE("Does not throw an exception when deleting a list", "[SinglyLinkedList][destructor]")

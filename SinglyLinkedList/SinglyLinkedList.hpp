@@ -11,6 +11,7 @@
 #ifndef SINGLYLINKEDLIST_H
 #define SINGLYLINKEDLIST_H
 #include <cstddef>
+#include <stdexcept>
 
 template<typename TYPE>
 struct SinglyLinkedListNode

@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../SinglyLinkedList.hpp"
 
 TEST_CASE("Throws an exception when trying to retrieve from an empty list", "[SinglyLinkedList][getElementAtIndex()]")

@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../SinglyLinkedList.hpp"
 
 TEST_CASE("Updates an element at a valid index", "[SinglyLinkedList][updateElementAtIndex()]")

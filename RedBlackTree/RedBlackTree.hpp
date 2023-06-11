@@ -124,10 +124,22 @@ class RedBlackTree
 
         // Updates the value of the node with the specified key, or inserts the
         // provided key/value pair if the tree does not already contain the key.
+        // Returns true of if tree already contained a node with the provided
+        // key, returns false otherwise.
         // Algorithmic runtime: O(log N)
         bool upsert(KEY_TYPE key, VALUE_TYPE newValue)
         {
-            // TODO
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node = getNode(key);
+
+            // Node already exists, so update
+            if (node != NULL)
+            {
+                node->value = newValue;
+                return true;
+            }
+
+            // Node doesn't already exist, so insert
+            insert(key, newValue);
             return false;
         }
 

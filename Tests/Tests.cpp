@@ -18,6 +18,7 @@
 #include "../RedBlackTree/Tests/TreePropertiesTests.cpp"
 #include "../RedBlackTree/Tests/InsertTests.cpp"
 #include "../RedBlackTree/Tests/UpdateTests.cpp"
+#include "../RedBlackTree/Tests/UpsertTests.cpp"
 #include "../SinglyLinkedList/Tests/ClearTests.cpp"
 #include "../SinglyLinkedList/Tests/DeleteFromIndexTests.cpp"
 #include "../SinglyLinkedList/Tests/DestructorTests.cpp"

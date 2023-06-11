@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../TestRedBlackTree.hpp"
 
 TEST_CASE("Tree contains nodes after they are inserted", "[RedBlackTree][insert()]")

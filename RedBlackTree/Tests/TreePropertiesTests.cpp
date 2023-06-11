@@ -8,6 +8,7 @@
  * Contact: (jacobhuntdevelopment@gmail.com)
  */
 
+#include "../../Libraries/Catch2/catch.hpp"
 #include "../TestRedBlackTree.hpp"
 
 TEST_CASE("Red Black Tree properties hold when inserting elements in order", "[RedBlackTree]")

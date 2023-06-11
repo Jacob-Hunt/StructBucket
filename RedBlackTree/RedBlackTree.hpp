@@ -47,13 +47,8 @@ class RedBlackTree
         // Algorithmic runtime: O(log N)
         VALUE_TYPE* get(KEY_TYPE key)
         {
-            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode = this->root;
-            while (currentNode != NULL)
-            {
-                if (key < currentNode->key) currentNode = currentNode->leftChild;
-                else if (key > currentNode->key) currentNode = currentNode->rightChild;
-                else if (key == currentNode->key) return &(currentNode->value); 
-            }
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node = getNode(key);
+            if (node != NULL) return &(node->value);
             return NULL;
         }
 
@@ -120,7 +115,11 @@ class RedBlackTree
         // Algorithmic runtime: O(log N)
         void update(KEY_TYPE key, VALUE_TYPE newValue)
         {
-            // TODO
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node = getNode(key);
+            if (node == NULL) throw std::runtime_error(
+                "Could not find Red Black Tree entry with the provided key"
+            );
+            node->value = newValue;
         }
 
         // Updates the value of the node with the specified key, or inserts the
@@ -154,6 +153,18 @@ class RedBlackTree
         int numberOfNodes = 0;
     
     private:
+        RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* getNode(KEY_TYPE key)
+        {
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode = this->root;
+            while (currentNode != NULL)
+            {
+                if (key < currentNode->key) currentNode = currentNode->leftChild;
+                else if (key > currentNode->key) currentNode = currentNode->rightChild;
+                else if (key == currentNode->key) return currentNode; 
+            }
+            return NULL;
+        }
+
         void restoreRedBlackTreeProperties(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* parent;
@@ -296,7 +307,6 @@ class RedBlackTree
             oldLeftChild->rightChild = node;
             node->parent = oldLeftChild;
         }
-
 };
 
 #endif

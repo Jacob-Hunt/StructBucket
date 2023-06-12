@@ -34,9 +34,9 @@ TEST_CASE("Expected behavior for RBT remove method", "[RedBlackTree][remove()]")
 
     SECTION("Removing a node reduces the size of the tree by 1")
     {
-        int initialSize = testTree.size();
+        unsigned int initialSize = testTree.size();
         testTree.remove(2);
-        int newSize = testTree.size();
+        unsigned int newSize = testTree.size();
         REQUIRE(newSize == initialSize - 1);
     }
 

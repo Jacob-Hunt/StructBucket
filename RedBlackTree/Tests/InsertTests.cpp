@@ -40,7 +40,7 @@ TEST_CASE("Inserting a node increases the tree size by 1", "[RedBlackTree][inser
     testTree.insert(1, 0);
     testTree.insert(2, 0);
 
-    int initialSize = testTree.size();
+    unsigned int initialSize = testTree.size();
     testTree.insert(3, 0);
 
     REQUIRE(testTree.size() == initialSize + 1);

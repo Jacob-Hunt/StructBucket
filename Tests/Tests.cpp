@@ -16,6 +16,7 @@
 
 // Include all unit tests for all collections in the project
 #include "../RedBlackTree/Tests/ClearTests.cpp"
+#include "../RedBlackTree/Tests/GetTests.cpp"
 #include "../RedBlackTree/Tests/TreePropertiesTests.cpp"
 #include "../RedBlackTree/Tests/InsertTests.cpp"
 #include "../RedBlackTree/Tests/RemoveTests.cpp"

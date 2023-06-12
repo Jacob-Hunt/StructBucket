@@ -15,6 +15,14 @@
 #include "../Libraries/Catch2/catch.hpp"
 
 // Include all unit tests for all collections in the project
+#include "../RedBlackTree/Tests/ClearTests.cpp"
+#include "../RedBlackTree/Tests/GetTests.cpp"
+#include "../RedBlackTree/Tests/TreePropertiesTests.cpp"
+#include "../RedBlackTree/Tests/InsertTests.cpp"
+#include "../RedBlackTree/Tests/RemoveTests.cpp"
+#include "../RedBlackTree/Tests/SizeTests.cpp"
+#include "../RedBlackTree/Tests/UpdateTests.cpp"
+#include "../RedBlackTree/Tests/UpsertTests.cpp"
 #include "../SinglyLinkedList/Tests/ClearTests.cpp"
 #include "../SinglyLinkedList/Tests/DeleteFromIndexTests.cpp"
 #include "../SinglyLinkedList/Tests/DestructorTests.cpp"

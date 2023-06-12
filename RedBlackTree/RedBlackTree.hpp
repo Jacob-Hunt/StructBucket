@@ -241,6 +241,9 @@ class RedBlackTree
                 // Delete the current node
                 delete currentNode;
             }
+
+            // Reset node counter
+            this->numberOfNodes = 0;
         }
 
     protected:

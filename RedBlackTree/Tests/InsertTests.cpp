@@ -33,3 +33,15 @@ TEST_CASE("Trying to insert duplicate keys throws an exception", "[RedBlackTree]
 
     REQUIRE_THROWS(testTree.insert(2, 0));
 }
+
+TEST_CASE("Inserting a node increases the tree size by 1", "[RedBlackTree][insert()]")
+{
+    TestRedBlackTree<int, int> testTree;
+    testTree.insert(1, 0);
+    testTree.insert(2, 0);
+
+    int initialSize = testTree.size();
+    testTree.insert(3, 0);
+
+    REQUIRE(testTree.size() == initialSize + 1);
+}

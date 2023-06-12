@@ -182,6 +182,11 @@ class TestRedBlackTree : public RedBlackTree<KEY_TYPE, VALUE_TYPE>
             // Could not find node with the provided key
             return false;
         }
+
+        bool isRootNull()
+        {
+            return this->root == NULL;
+        }
     
     private:
         bool isEmpty()

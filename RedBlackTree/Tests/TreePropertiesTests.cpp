@@ -90,9 +90,65 @@ TEST_CASE("Red Black Tree properties hold when inserting elements in a random or
     }
 }
 
+TEST_CASE("Red Black Tree properties hold after removing nodes", "[RedBlackTree]")
+{
+    TestRedBlackTree<int, int> testTree;
+    int shuffledKeys[20] = {13, 7, 15, 3, 17, 8, 6, 9, 2, 18, 12, 20, 19, 10, 5, 4, 11, 16, 1, 14};
+    for (int i = 0; i < 20; i++) testTree.insert(shuffledKeys[i], shuffledKeys[i]);
+    for (int i = 0; i < 10; i += 4) testTree.remove(i);
+
+    SECTION("Root node is black")
+    {
+        REQUIRE(testTree.isRootNodeBlack());
+    }
+
+    SECTION("Tree does not contain any red nodes with red children")
+    {
+        REQUIRE(testTree.noRedNodesWithRedChildren());
+    }
+
+    SECTION("All paths from root to leaves contain the same number of black nodes")
+    {
+        REQUIRE(testTree.blackNodePathEqualityHolds());
+    }
+
+    SECTION("The tree is sorted")
+    {
+        REQUIRE(testTree.isTreeSorted());
+    }
+}
+
 TEST_CASE("Red Black Tree properties hold for an empty tree", "[RedBlackTree]")
 {
     TestRedBlackTree<int, int> testTree;
+
+    SECTION("Root node is black")
+    {
+        REQUIRE(testTree.isRootNodeBlack());
+    }
+
+    SECTION("Tree does not contain any red nodes with red children")
+    {
+        REQUIRE(testTree.noRedNodesWithRedChildren());
+    }
+
+    SECTION("All paths from root to leaves contain the same number of black nodes")
+    {
+        REQUIRE(testTree.blackNodePathEqualityHolds());
+    }
+
+    SECTION("The tree is sorted")
+    {
+        REQUIRE(testTree.isTreeSorted());
+    }
+}
+
+TEST_CASE("Red Black Tree properties hold after clearing tree", "[RedBlackTree]")
+{
+    TestRedBlackTree<int, int> testTree;
+    int shuffledKeys[20] = {13, 7, 15, 3, 17, 8, 6, 9, 2, 18, 12, 20, 19, 10, 5, 4, 11, 16, 1, 14};
+    for (int i = 0; i < 20; i++) testTree.insert(shuffledKeys[i], shuffledKeys[i]);
+    testTree.clear();
 
     SECTION("Root node is black")
     {

@@ -106,7 +106,7 @@ class RedBlackTree
             }
 
             // Restore Red Black Tree properties
-            restoreRedBlackTreeProperties(newNode);
+            restoreAfterInsert(newNode);
 
             // Increment the counter
             this->numberOfNodes++;
@@ -152,8 +152,59 @@ class RedBlackTree
         // Algorithmic runtime: O(log N)
         bool remove(KEY_TYPE key)
         {
-            // TODO
-            return false;
+            // Get the node that we want to remove from the tree
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* nodeToDelete = this->getNode(key);
+
+            // Edge case where the tree doesn't contain the node
+            if (nodeToDelete == NULL) return false;
+
+            // Pointer to the node that we will pass to the post-delete cleanup
+            // method (varies depending on the properties of the node to be
+            // deleted)
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* nodeForRestoreAfterDelete;
+
+            // Case were the left child is NULL
+            if (nodeToDelete->leftChild == NULL)
+            {
+                transplantNodes(nodeToDelete, nodeToDelete->rightChild);
+                nodeForRestoreAfterDelete = nodeToDelete->rightChild;
+            }
+
+            // Case where the right child is NULL
+            else if (nodeToDelete->rightChild == NULL)
+            {
+                transplantNodes(nodeToDelete, nodeToDelete->leftChild);
+                nodeForRestoreAfterDelete = nodeToDelete->leftChild;
+            }
+
+            // Case where neither child is NULL
+            else
+            {
+                // Get the leftmost node of the right subtree of the node to be
+                // deleted
+                RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* rightSubtreeMin = nodeToDelete->rightChild;
+                while (rightSubtreeMin->leftChild != NULL) rightSubtreeMin = rightSubtreeMin->leftChild;
+
+                // Save the node for the cleanup method
+                nodeForRestoreAfterDelete = rightSubtreeMin->rightChild;
+
+                // Adjust pointers
+                transplantNodes(rightSubtreeMin, rightSubtreeMin->rightChild);
+                rightSubtreeMin->rightChild = nodeToDelete->rightChild;
+                rightSubtreeMin->rightChild->parent = rightSubtreeMin;
+                transplantNodes(nodeToDelete, rightSubtreeMin);
+                rightSubtreeMin->leftChild = nodeToDelete->leftChild;
+                rightSubtreeMin->leftChild->parent = rightSubtreeMin;
+            }
+
+            // If the node we're deleting is black, we need to call the cleanup
+            // method
+            if (!nodeToDelete->isRed) restoreAfterDelete(nodeForRestoreAfterDelete);
+
+            // Deallocate the memory and decrement the counter
+            delete nodeToDelete;
+            this->numberOfNodes--;
+            return true;
         }
 
         // Removes all elements in the tree, deallocating associated memory.
@@ -180,7 +231,7 @@ class RedBlackTree
             return NULL;
         }
 
-        void restoreRedBlackTreeProperties(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
+        void restoreAfterInsert(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
         {
             RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* parent;
             RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* grandparent;
@@ -321,6 +372,130 @@ class RedBlackTree
             // the rotated node
             oldLeftChild->rightChild = node;
             node->parent = oldLeftChild;
+        }
+
+        void transplantNodes(
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* original,
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* replacement
+        ) {
+            if (original->parent == NULL)
+            {
+                this->root = replacement;
+            }
+            else if (original == original->parent->leftChild)
+            {
+                original->parent->leftChild = replacement;
+            }
+            else
+            {
+                original->parent->rightChild = replacement;
+            }
+            if (replacement != NULL)
+            {
+                replacement->parent = original->parent;
+            }
+        }
+
+        void restoreAfterDelete(RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* node)
+        {
+            // Edge case where node is NULL
+            if (node == NULL) return;
+
+            // Pointer to the current node's sibling
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* sibling;
+
+            // While the node isn't the root and has not been colored red
+            while (node->parent != NULL && !node->isRed)
+            {
+                // Case where the node is the left child of its parent
+                if (node == node->parent->left)
+                {
+                    // Fix iteration when sibling node is red
+                    if (sibling != NULL and sibling->isRed)
+                    {
+                        sibling->isRed = false;
+                        node->parent->isRed = true;
+                        rotateLeft(node->parent);
+                        sibling = node->parent->rightChild;
+                    }
+
+                    // Fix iteration when sibling node is black with black child
+                    // nodes
+                    else if ((sibling->leftChild == NULL || !sibling->leftChild->isRed) &&
+                        (sibling->rightChild == NULL || !sibling->rightChild->isRed)
+                    ) {
+                        sibling->isRed = true;
+                        node = node->parent;
+                    }
+                    else
+                    {
+                        // Fix iteration when sibling node is black with black
+                        // right child and red left child
+                        if (sibling->rightChild == NULL || !sibling->rightChild->isRed)
+                        {
+                            sibling->leftChild->isRed = false;
+                            sibling->isRed = true;
+                            rotateRight(sibling);
+                            sibling = node->parent->rightChild;
+                        }
+
+                        // Fix iteration when sibling node is black with black
+                        // left child and red right child
+                        sibling->isRed = node->parent->isRed;
+                        node->parent->isRed = false;
+                        sibling->rightChild->isRed = false;
+                        rotateLeft(node->parent);
+                        node = this->root;
+                    }
+                }
+
+                // Case where the node is the right child of its parent
+                else
+                {
+                    sibling = node->parent->left;
+
+                    // Fix iteration when sibling node is red
+                    if (sibling != NULL and sibling->isRed)
+                    {
+                        sibling->isRed = false;
+                        node->parent->isRed = true;
+                        rotateRight(node->parent);
+                        sibling = node->parent->leftChild;
+                    }
+
+                    // Fix iteration when sibling node is black with black child
+                    // nodes
+                    else if ((sibling->leftChild == NULL || !sibling->leftChild->isRed) &&
+                        (sibling->rightChild == NULL || !sibling->rightChild->isRed)
+                    ) {
+                        sibling->isRed = true;
+                        node = node->parent;
+                    }
+                    else
+                    {
+                        // Fix iteration when sibling node is black with black
+                        // left child and red right child
+                        if (sibling->leftChild == NULL || !sibling->leftChild->isRed)
+                        {
+                            sibling->rightChild->isRed = false;
+                            sibling->isRed = true;
+                            rotateLeft(sibling);
+                            sibling = node->parent->leftChild;
+                        }
+
+                        // Fix iteration when sibling node is black with black
+                        // right child and red right left
+                        sibling->isRed = node->parent->isRed;
+                        node->parent->isRed = false;
+                        sibling->leftChild->isRed = false;
+                        rotateRight(node->parent);
+                        node = this->root;
+                    }
+                }
+            }
+
+            // Color node black
+            node->isRed = false;
         }
 };
 

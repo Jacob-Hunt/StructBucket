@@ -12,6 +12,7 @@
 #define REDBLACKTREE_H
 #include <cstddef>
 #include <stdexcept>
+#include <stack>
 
 template<typename KEY_TYPE, typename VALUE_TYPE>
 struct RedBlackTreeNode
@@ -211,7 +212,35 @@ class RedBlackTree
         // Algorithmic runtime: O(N)
         void clear()
         {
-            // TODO
+            // Edge case of an empty tree
+            if (this->root == NULL) return;
+
+            // Stack of nodes to visit
+            std::stack<RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>*> nodeStack;
+
+            // Node currently being visited
+            RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* currentNode;
+
+            // Start with the root node
+            nodeStack.push(this->root);
+
+            // Point the tree root to null
+            this->root = NULL;
+
+            // While we still have nodes to visit...
+            while (!nodeStack.empty())
+            {
+                // Get the next node in the stack
+                currentNode = nodeStack.top();
+                nodeStack.pop();
+
+                // Add child nodes to the stack (if they exist)
+                if (currentNode->leftChild) nodeStack.push(currentNode->leftChild);
+                if (currentNode->rightChild) nodeStack.push(currentNode->rightChild);
+
+                // Delete the current node
+                delete currentNode;
+            }
         }
 
     protected:

@@ -408,7 +408,7 @@ class RedBlackTree
             while (node->parent != NULL && !node->isRed)
             {
                 // Case where the node is the left child of its parent
-                if (node == node->parent->left)
+                if (node == node->parent->leftChild)
                 {
                     // Fix iteration when sibling node is red
                     if (sibling != NULL and sibling->isRed)
@@ -452,7 +452,7 @@ class RedBlackTree
                 // Case where the node is the right child of its parent
                 else
                 {
-                    sibling = node->parent->left;
+                    sibling = node->parent->leftChild;
 
                     // Fix iteration when sibling node is red
                     if (sibling != NULL and sibling->isRed)

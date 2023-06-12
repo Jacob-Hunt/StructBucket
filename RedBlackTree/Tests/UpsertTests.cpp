@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2023 Jacob Hunt
  *
- * @file UpsertTests.hpp
+ * @file UpsertTests.cpp
  * @brief Unit tests for a Red Black Tree implementation of a key/value dictionary
  * @author Jacob Hunt
  * @copyright MIT License

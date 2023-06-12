@@ -20,6 +20,7 @@
 #include "../RedBlackTree/Tests/TreePropertiesTests.cpp"
 #include "../RedBlackTree/Tests/InsertTests.cpp"
 #include "../RedBlackTree/Tests/RemoveTests.cpp"
+#include "../RedBlackTree/Tests/SizeTests.cpp"
 #include "../RedBlackTree/Tests/UpdateTests.cpp"
 #include "../RedBlackTree/Tests/UpsertTests.cpp"
 #include "../SinglyLinkedList/Tests/ClearTests.cpp"

@@ -38,7 +38,7 @@ class RedBlackTree
 
         // Returns the number of nodes in the tree.
         // Algorithmic runtime: O(1)
-        int size() const
+        unsigned int size() const
         {
             return this->numberOfNodes;
         }
@@ -79,6 +79,7 @@ class RedBlackTree
             {
                 this->root = newNode;
                 this->root->isRed = false;
+                this->numberOfNodes++;
                 return;
             }
 
@@ -248,7 +249,7 @@ class RedBlackTree
 
     protected:
         RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* root = NULL;
-        int numberOfNodes = 0;
+        unsigned int numberOfNodes = 0;
     
     private:
         RedBlackTreeNode<KEY_TYPE, VALUE_TYPE>* getNode(KEY_TYPE key)

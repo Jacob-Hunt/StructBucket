@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2023 Jacob Hunt
  *
- * @file GetTests.hpp
+ * @file GetTests.cpp
  * @brief Unit tests for a Red Black Tree implementation of a key/value dictionary
  * @author Jacob Hunt
  * @copyright MIT License
@@ -11,7 +11,7 @@
 #include "../../Libraries/Catch2/catch.hpp"
 #include "../RedBlackTree.hpp"
 
-TEST_CASE("Retrieves pointer to the value for a key that exists in the tree")
+TEST_CASE("Retrieves pointer to the value for a key that exists in the tree", "[RedBlackTree][get()]")
 {
     RedBlackTree<int, std::string> testTree;
     testTree.insert(1, "one");
@@ -22,7 +22,7 @@ TEST_CASE("Retrieves pointer to the value for a key that exists in the tree")
     REQUIRE(*testTree.get(3) == "three");
 }
 
-TEST_CASE("Retrieves null pointer when key does not exist in the tree")
+TEST_CASE("Retrieves null pointer when key does not exist in the tree", "[RedBlackTree][get()]")
 {
     RedBlackTree<int, std::string> testTree;
     testTree.insert(1, "one");
@@ -31,7 +31,7 @@ TEST_CASE("Retrieves null pointer when key does not exist in the tree")
     REQUIRE(testTree.get(5) == NULL);
 }
 
-TEST_CASE("Retrieves null pointer when trying to retrieve from an empty tree")
+TEST_CASE("Retrieves null pointer when trying to retrieve from an empty tree", "[RedBlackTree][get()]")
 {
     RedBlackTree<int, std::string> testTree;
     REQUIRE(testTree.get(1) == NULL);

@@ -167,6 +167,7 @@ class SinglyLinkedList
             {
                 nodeToDelete = head;
                 head = head->next;
+                delete nodeToDelete;
                 length--;
                 return;
             }

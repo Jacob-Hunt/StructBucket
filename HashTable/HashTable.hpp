@@ -16,7 +16,7 @@ struct HashTableNode
 {
     KEY_TYPE key;
     VALUE_TYPE value;
-    HashTableNode<KEY_TYPE, VALUE_TYPE>* next;
+    HashTableNode<KEY_TYPE, VALUE_TYPE>* next = nullptr;
 };
 
 template<typename KEY_TYPE, typename VALUE_TYPE>
@@ -24,34 +24,34 @@ class HashTable
 {
     public:
         // Constructor
-        HashTable(size_t tableSize = 100, int (*hashFunction)(KEY_TYPE) = nullptr)
+        HashTable(size_t tableSize = 100, unsigned int (*hashFunction)(KEY_TYPE, unsigned int) = nullptr)
         {
             // Initialize the table and internal variables
-            table = new HashTableNode<KEY_TYPE, VALUE_TYPE>*[tableSize];
+            this->table = new HashTableNode<KEY_TYPE, VALUE_TYPE>*[tableSize];
             for (size_t i = 0; i < tableSize; i++) table[i] = nullptr;
             this->numberOfElements = 0;
             this->tableArrayCapacity = tableSize;
 
             // Set the hash function
-            if (hashFunction == null) this->hashFunction = jenkinsHashFunction;
+            if (hashFunction == nullptr) this->hashFunction = &this->jenkinsHashFunction;
             else this->hashFunction = hashFunction;
         }
 
         // Destructor
         ~HashTable()
         {
-            // Delete all elements in the table
-            clear();
+            // Delete all of the nodes in the table
+            this->clear();
 
             // Delete the table
-            delete[] table;
+            delete[] this->table;
         }
 
         // Inserts a key/value pair into the table. If the key already exists, the value will be overwritten.
         void insert(KEY_TYPE key, VALUE_TYPE value)
         {
             // Get the hash of the key
-            unsigned int hash = hashFunction(key);
+            unsigned int hash = hashFunction(key, this->tableArrayCapacity);
 
             // Check if the key already exists, overwrite the value if it does and return
             HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[hash];
@@ -88,7 +88,7 @@ class HashTable
         bool remove(KEY_TYPE key)
         {
             // Get the hash of the key
-            unsigned int hash = hashFunction(key);
+            unsigned int hash = hashFunction(key, this->tableArrayCapacity);
 
             // Search for the key
             HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[hash];
@@ -117,7 +117,7 @@ class HashTable
         VALUE_TYPE* get(KEY_TYPE key)
         {
             // Get the hash of the key
-            unsigned int hash = hashFunction(key);
+            unsigned int hash = hashFunction(key, this->tableArrayCapacity);
 
             // Search for the key
             HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[hash];
@@ -138,7 +138,7 @@ class HashTable
         bool contains(KEY_TYPE key)
         {
             // Get the hash of the key
-            unsigned int hash = hashFunction(key);
+            unsigned int hash = hashFunction(key, this->tableArrayCapacity);
 
             // Search for the key
             HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[hash];
@@ -158,16 +158,19 @@ class HashTable
         // Clears all elements from the table, freeing the associated memory. Does not delete the table itself.
         void clear()
         {
-            for (size_t i = 0; i < tableSize; i++)
+            HashTableNode<KEY_TYPE, VALUE_TYPE>* current;
+            HashTableNode<KEY_TYPE, VALUE_TYPE>* next;
+            for (size_t i = 0; i < this->tableArrayCapacity; i++)
             {
-                HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[i];
+                current = table[i];
                 while (current != nullptr)
                 {
-                    HashTableNode<KEY_TYPE, VALUE_TYPE>* next = current->next;
+                    next = current->next;
                     delete current;
                     current = next;
                 }
             }
+            for (size_t i = 0; i < this->tableArrayCapacity; i++) table[i] = nullptr;
             numberOfElements = 0;
         }
 
@@ -183,32 +186,43 @@ class HashTable
             return numberOfElements == 0;
         }
 
-        // Prints the contents of the table to the console
-        void print()
+        // Prints the contents of the table to an output stream (the console by default)
+        void print(std::stringstream& outputStream = std::cout)
         {
-            for (size_t i = 0; i < tableSize; i++)
+            for (size_t i = 0; i < this->tableArrayCapacity; i++)
             {
                 HashTableNode<KEY_TYPE, VALUE_TYPE>* current = table[i];
                 while (current != nullptr)
                 {
-                    std::cout << current->key << ": " << current->value << std::endl;
+                    outputStream << current->key << ": " << current->value << std::endl;
                     current = current->next;
                 }
             }
+        }
+
+        // Returns the hash for the given key
+        unsigned int getHash(KEY_TYPE key)
+        {
+            return hashFunction(key, this->tableArrayCapacity);
         }
     
     private:
         // The hash table array
         HashTableNode<KEY_TYPE, VALUE_TYPE>** table;
 
-        unsigned int (*hashFunction)(KEY_TYPE key);
+        unsigned int (*hashFunction)(KEY_TYPE key, unsigned int modulus);
 
         // The hash function that will be used if one is not provided to
         // the constructor.
         // See: https://en.wikipedia.org/wiki/Jenkins_hash_function
-        unsigned int jenkinsHashFunction(KEY_TYPE key)
+        static unsigned int jenkinsHashFunction(KEY_TYPE key, unsigned int modulus)
         {
-            std::string hashString(key);
+            // Convert the key to a string
+            std::stringstream hashStringStream;
+            hashStringStream << key;
+            std::string hashString = hashStringStream.str();
+
+            // Compute the hash using the Jenkins hash function
             unsigned int hash = 0;
             for (unsigned int i = 0; hashString[i] != '\0'; i++)
             {
@@ -219,7 +233,9 @@ class HashTable
             hash += hash << 3;
             hash ^= hash >> 11;
             hash += hash << 15;
-            return hash % tableArrayCapacity;
+
+            // Return the modulus of the hash
+            return hash % modulus;
         }
 
         // The null pointer
